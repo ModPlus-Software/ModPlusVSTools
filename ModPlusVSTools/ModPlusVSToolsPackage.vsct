@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidModPlusVSToolsPackage">
+
+    <Menus>
+      <!-- Подменю "ModPlus" внутри главного меню "Расширения" -->
+      <Menu guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ExtensionsMenuGroup" />
+        <Strings>
+          <ButtonText>ModPlus</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <!-- Группа в главном меню "Расширения" (Extensions), в которую помещается меню ModPlus -->
+      <Group guid="guidModPlusVSToolsCmdSet" id="ExtensionsMenuGroup" priority="0x0600">
+        <Parent guid="guidVSMainMenu" id="IDM_VS_MENU_EXTENSIONS" />
+      </Group>
+
+      <!-- Группа внутри меню ModPlus для пунктов -->
+      <Group guid="guidModPlusVSToolsCmdSet" id="ModPlusMenuGroup" priority="0x0000">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidModPlusVSToolsCmdSet" id="BuildCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenuGroup" />
+        <Strings>
+          <ButtonText>Собрать</ButtonText>
+          <ToolTipText>Сборка проекта плагина ModPlus по всем версионным конфигурациям</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidModPlusVSToolsCmdSet" id="BuildAndArchiveCommandId" priority="0x0101" type="Button">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenuGroup" />
+        <Strings>
+          <ButtonText>Собрать и архивировать</ButtonText>
+          <ToolTipText>Сборка проекта по всем версионным конфигурациям и упаковка полученных dll в zip-архив</ToolTipText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+  </Commands>
+
+  <Symbols>
+    <!-- Должен совпадать с ModPlusVSToolsPackage.PackageGuidString -->
+    <GuidSymbol name="guidModPlusVSToolsPackage" value="{76fec63c-bbe6-4ec2-b437-46de6ffe6749}" />
+
+    <!--
+      GUID главного меню VS (guidSHLMainMenu). Символ объявлен здесь явно,
+      чтобы не зависеть от того, определён ли IDM_VS_MENU_EXTENSIONS (0x0091)
+      в установленной версии vsshlids.h
+    -->
+    <GuidSymbol name="guidVSMainMenu" value="{d309f791-903f-11d0-9efc-00a0c911004f}">
+      <IDSymbol name="IDM_VS_MENU_EXTENSIONS" value="0x0091" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidModPlusVSToolsCmdSet" value="{7fd404e2-acb2-429b-987e-656d85da941c}">
+      <IDSymbol name="ExtensionsMenuGroup" value="0x1010" />
+      <IDSymbol name="ModPlusMenu" value="0x1020" />
+      <IDSymbol name="ModPlusMenuGroup" value="0x1030" />
+      <IDSymbol name="BuildCommandId" value="0x0100" />
+      <IDSymbol name="BuildAndArchiveCommandId" value="0x0101" />
+    </GuidSymbol>
+  </Symbols>
+
+</CommandTable>
