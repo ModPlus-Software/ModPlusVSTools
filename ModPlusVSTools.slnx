@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ModPlusVSTools/ModPlusVSTools.csproj">
+    <Deploy />
+  </Project>
+</Solution>
