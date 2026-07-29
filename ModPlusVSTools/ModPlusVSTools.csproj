@@ -16,9 +16,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.14.40265" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.5.40034" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0" ExcludeAssets="runtime;native;contentFiles" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.VisualStudio.LanguageServices" Version="4.11.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="Models\" />
+    <Folder Include="QuickInfo\" />
     <Folder Include="Services\" />
     <Folder Include="UI\" />
   </ItemGroup>
