@@ -247,7 +247,8 @@ namespace ModPlusVSTools.Services
 
         /// <summary>
         /// Создать zip-архив с dll, полученными при сборке.
-        /// Все dll кладутся в корень архива (имена файлов различаются по конфигурациям).
+        /// В архиве создаётся папка с именем проекта, все dll кладутся в неё
+        /// (имена файлов различаются по конфигурациям).
         /// </summary>
         /// <returns>Путь к созданному архиву.</returns>
         public static string CreateArchive(
@@ -276,12 +277,14 @@ namespace ModPlusVSTools.Services
                         continue;
                     }
 
-                    // Все dll — в корень архива. Имена файлов различаются по конфигурациям;
+                    // Все dll — в папку с именем проекта внутри архива.
+                    // Имена файлов различаются по конфигурациям;
                     // на случай неожиданного совпадения — страховка с префиксом конфигурации
-                    var entryName = Path.GetFileName(dllPath);
-                    if (!addedNames.Add(entryName))
-                        entryName = config + "_" + entryName;
+                    var fileName = Path.GetFileName(dllPath);
+                    if (!addedNames.Add(fileName))
+                        fileName = config + "_" + fileName;
 
+                    var entryName = candidate.Name + "/" + fileName;
                     zip.CreateEntryFromFile(dllPath, entryName, CompressionLevel.Optimal);
                 }
             }
