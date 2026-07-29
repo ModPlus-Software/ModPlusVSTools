@@ -30,7 +30,7 @@ namespace ModPlusVSTools.QuickInfo
             var triggerPoint = session.GetTriggerPoint(_textBuffer.CurrentSnapshot);
             if (triggerPoint == null)
             {
-                Debug.WriteLine("ShowLangItem.Xaml: triggerPoint is null");
+                Debug.WriteLine("ModPlusVSTools.Xaml: triggerPoint is null");
                 return Task.FromResult<QuickInfoItem>(null);
             }
 
@@ -49,7 +49,7 @@ namespace ModPlusVSTools.QuickInfo
 
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                Debug.WriteLine("ShowLangItem.Xaml: file path not found");
+                Debug.WriteLine("ModPlusVSTools.Xaml: file path not found");
                 return Task.FromResult<QuickInfoItem>(null);
             }
 
@@ -75,14 +75,14 @@ namespace ModPlusVSTools.QuickInfo
                     var doc = _workspace.CurrentSolution.GetDocument(docIds[0]);
                     if (doc?.Project?.Name != null)
                     {
-                        Debug.WriteLine($"ShowLangItem.Xaml: resolved plugin name '{doc.Project.Name}' via code-behind");
+                        Debug.WriteLine($"ModPlusVSTools.Xaml: resolved plugin name '{doc.Project.Name}' via code-behind");
                         return doc.Project.Name;
                     }
                 }
             }
 
             var fallback = LocalizationTextResolver.GetPluginNameFromFilePath(xamlFilePath);
-            Debug.WriteLine($"ShowLangItem.Xaml: fallback plugin name '{fallback}' from file path");
+            Debug.WriteLine($"ModPlusVSTools.Xaml: fallback plugin name '{fallback}' from file path");
             return fallback;
         }
     }

@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Utilities;
 namespace ModPlusVSTools.QuickInfo
 {
     [Export(typeof(IAsyncQuickInfoSourceProvider))]
-    [Name("ShowLangItem QuickInfo")]
+    [Name("ModPlusVSTools QuickInfo")]
     [Order(Before = "default")]
     [ContentType("CSharp")]
     internal sealed class QuickLocaleInfoSourceProvider : IAsyncQuickInfoSourceProvider

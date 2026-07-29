@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Utilities;
 namespace ModPlusVSTools.QuickInfo
 {
     [Export(typeof(IAsyncQuickInfoSourceProvider))]
-    [Name("ShowLangItem XAML QuickInfo")]
+    [Name("ModPlusVSTools XAML QuickInfo")]
     [Order(Before = "default")]
     [ContentType("XAML")]
     internal sealed class XamlQuickLocaleInfoSourceProvider : IAsyncQuickInfoSourceProvider

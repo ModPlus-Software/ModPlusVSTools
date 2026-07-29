@@ -71,12 +71,12 @@ namespace ModPlusVSTools.QuickInfo
                 {
                     edit.Insert(insertPos, commentText + Environment.NewLine);
                     edit.Apply();
-                    Debug.WriteLine("ShowLangItem: Inserted '" + commentText + "' at position " + insertPos);
+                    Debug.WriteLine("ModPlusVSTools: Inserted '" + commentText + "' at position " + insertPos);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("ShowLangItem: Error inserting comment - " + ex.Message);
+                Debug.WriteLine("ModPlusVSTools: Error inserting comment - " + ex.Message);
             }
         }
     }

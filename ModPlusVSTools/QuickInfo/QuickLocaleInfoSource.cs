@@ -30,14 +30,14 @@ namespace ModPlusVSTools.QuickInfo
             var triggerPoint = session.GetTriggerPoint(_textBuffer.CurrentSnapshot);
             if (triggerPoint == null)
             {
-                Debug.WriteLine("ShowLangItem: triggerPoint is null");
+                Debug.WriteLine("ModPlusVSTools: triggerPoint is null");
                 return null;
             }
 
             var document = GetDocument();
             if (document == null)
             {
-                Debug.WriteLine("ShowLangItem: document lookup failed");
+                Debug.WriteLine("ModPlusVSTools: document lookup failed");
                 return null;
             }
 
@@ -72,20 +72,20 @@ namespace ModPlusVSTools.QuickInfo
 
             if (!Workspace.TryGetWorkspace(textContainer, out var workspace))
             {
-                Debug.WriteLine("ShowLangItem: TryGetWorkspace returned false – buffer not registered with a Roslyn workspace");
+                Debug.WriteLine("ModPlusVSTools: TryGetWorkspace returned false – buffer not registered with a Roslyn workspace");
                 return null;
             }
 
             var documentId = workspace.GetDocumentIdInCurrentContext(textContainer);
             if (documentId == null)
             {
-                Debug.WriteLine("ShowLangItem: GetDocumentIdInCurrentContext returned null");
+                Debug.WriteLine("ModPlusVSTools: GetDocumentIdInCurrentContext returned null");
                 return null;
             }
 
             var document = workspace.CurrentSolution.GetDocument(documentId);
             if (document == null)
-                Debug.WriteLine($"ShowLangItem: GetDocument({documentId}) returned null");
+                Debug.WriteLine($"ModPlusVSTools: GetDocument({documentId}) returned null");
 
             return document;
         }

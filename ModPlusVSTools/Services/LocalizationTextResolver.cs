@@ -152,7 +152,7 @@ namespace ModPlusVSTools.Services
 
         private static string GetBaseLanguageFilesPath()
         {
-            var configuredPath = ShowLangItemPackage.Instance?.OptionsPage?.BaseLanguageFilesPath;
+            var configuredPath = ModPlusVSToolsPackage.Instance?.OptionsPage?.BaseLanguageFilesPath;
             return string.IsNullOrWhiteSpace(configuredPath) ? null : configuredPath.Trim();
         }
 
