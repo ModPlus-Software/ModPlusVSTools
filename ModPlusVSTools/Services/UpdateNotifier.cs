@@ -140,12 +140,9 @@ namespace ModPlusVSTools.Services
 
         /// <summary>
         /// Загружает .vsix с окном ожидания (с возможностью отмены) и запускает установщик.
-        /// Вызывается на UI-потоке.
         /// </summary>
         private async Task InstallCoreAsync(ReleaseInfo release)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var dialogFactory = await _package.GetServiceAsync(typeof(SVsThreadedWaitDialogFactory)) as IVsThreadedWaitDialogFactory;
             await _package.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);
 
