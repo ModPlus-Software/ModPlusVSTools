@@ -14,10 +14,9 @@ namespace ModPlusVSTools
     /// <summary>
     /// Пакет расширения ModPlus VS Tools.
     /// Добавляет меню "ModPlus" в главное меню "Расширения" (Extensions),
-    /// страницу настроек и проверку пути к файлам локализации при запуске.
+    /// страницу настроек, проверку пути к файлам локализации и проверку обновлений при запуске.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("ModPlus VS Tools", "Инструменты для разработки плагинов ModPlus", "1.0")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(ModPlusVSToolsOptionsPage), "ModPlus VS Tools", "Основные", 0, 0, true)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.NoSolution_string, PackageAutoLoadFlags.BackgroundLoad)]
@@ -48,6 +47,9 @@ namespace ModPlusVSTools
             await BuildCommand.InitializeAsync(this);
             await BuildAndArchiveCommand.InitializeAsync(this);
 
+            var updateNotifier = new UpdateNotifier(this);
+            await CheckForUpdatesCommand.InitializeAsync(this, updateNotifier);
+
             // При автозагрузке пакета хост InfoBar главного окна ещё может не существовать,
             // поэтому проверка откладывается до полной инициализации оболочки VS
             KnownUIContexts.ShellInitializedContext.WhenActivated(() =>
@@ -55,6 +57,9 @@ namespace ModPlusVSTools
                 {
                     await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
                     CheckLocalizationPath();
+
+                    if (OptionsPage.CheckForUpdatesOnStartup)
+                        await updateNotifier.CheckOnStartupAsync();
                 }));
         }
 

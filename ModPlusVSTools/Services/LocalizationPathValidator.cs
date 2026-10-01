@@ -29,7 +29,7 @@ namespace ModPlusVSTools.Services
             if (!HasLocalizationFiles(path))
             {
                 return $"В папке «{path}» не найдены файлы локализации " +
-                       "(ожидаются подпапки языков, например ru-RU, с XML-файлами).";
+                       "(ожидаются подпапки с именами языков, например ru-RU, с XML-файлами).";
             }
 
             return null;
@@ -39,8 +39,8 @@ namespace ModPlusVSTools.Services
         {
             try
             {
-                return Directory.EnumerateDirectories(path)
-                    .Any(dir => Directory.EnumerateFiles(dir, "*.xml", SearchOption.TopDirectoryOnly).Any());
+                return LocaleFolderDetector.GetLocales(path)
+                    .Any(locale => Directory.EnumerateFiles(Path.Combine(path, locale), "*.xml", SearchOption.TopDirectoryOnly).Any());
             }
             catch (IOException)
             {

@@ -12,16 +12,6 @@ namespace ModPlusVSTools.Services
 {
     internal static class LocalizationTextResolver
     {
-        private static readonly IReadOnlyList<string> SupportedLocales = new[]
-        {
-            "de-DE",
-            "en-US",
-            "es-ES",
-            "ru-RU",
-            "uk-UA",
-            "zh-CN",
-        };
-
         private static readonly object SyncRoot = new object();
         private static readonly Dictionary<string, CachedDocument> Cache = new Dictionary<string, CachedDocument>(StringComparer.OrdinalIgnoreCase);
 
@@ -48,13 +38,14 @@ namespace ModPlusVSTools.Services
 
         public static IReadOnlyList<LocalizedTextEntry> GetLocalizedTexts(string pluginName, string localizationKey, bool isCommon = false)
         {
-            var results = new List<LocalizedTextEntry>(SupportedLocales.Count);
             var basePath = GetBaseLanguageFilesPath();
-
             if (string.IsNullOrEmpty(basePath))
-                return results;
+                return new List<LocalizedTextEntry>();
 
-            foreach (var locale in SupportedLocales)
+            var locales = LocaleFolderDetector.GetLocales(basePath);
+            var results = new List<LocalizedTextEntry>(locales.Count);
+
+            foreach (var locale in locales)
             {
                 var localeFolder = Path.Combine(basePath, locale);
                 string text;

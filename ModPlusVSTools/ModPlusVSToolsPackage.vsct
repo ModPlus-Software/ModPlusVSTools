@@ -27,6 +27,11 @@
       <Group guid="guidModPlusVSToolsCmdSet" id="ModPlusMenuGroup" priority="0x0000">
         <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" />
       </Group>
+
+      <!-- Отдельная группа (отделяется разделителем) для служебных пунктов -->
+      <Group guid="guidModPlusVSToolsCmdSet" id="ModPlusServiceMenuGroup" priority="0x0100">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" />
+      </Group>
     </Groups>
 
     <Buttons>
@@ -43,6 +48,14 @@
         <Strings>
           <ButtonText>Собрать и архивировать</ButtonText>
           <ToolTipText>Сборка проекта по всем версионным конфигурациям и упаковка полученных dll в zip-архив</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidModPlusVSToolsCmdSet" id="CheckForUpdatesCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusServiceMenuGroup" />
+        <Strings>
+          <ButtonText>Проверить обновления</ButtonText>
+          <ToolTipText>Проверить наличие новой версии ModPlus VS Tools на GitHub</ToolTipText>
         </Strings>
       </Button>
     </Buttons>
@@ -66,8 +79,10 @@
       <IDSymbol name="ExtensionsMenuGroup" value="0x1010" />
       <IDSymbol name="ModPlusMenu" value="0x1020" />
       <IDSymbol name="ModPlusMenuGroup" value="0x1030" />
+      <IDSymbol name="ModPlusServiceMenuGroup" value="0x1040" />
       <IDSymbol name="BuildCommandId" value="0x0100" />
       <IDSymbol name="BuildAndArchiveCommandId" value="0x0101" />
+      <IDSymbol name="CheckForUpdatesCommandId" value="0x0102" />
     </GuidSymbol>
   </Symbols>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="ModPlusVSTools.c5e2b4c5-cf55-4a69-880e-6d95009286b6" Version="2.0" Language="ru-RU" Publisher="ModPlusVSTools" />
+    <Identity Id="ModPlusVSTools.c5e2b4c5-cf55-4a69-880e-6d95009286b6" Version="2.2" Language="ru-RU" Publisher="ModPlusVSTools" />
     <DisplayName>ModPlusVSTools</DisplayName>
     <Description>Утилиты, упрощающие разработку плагинов ModPlus</Description>
     <Icon>Resources\Icon.png</Icon>

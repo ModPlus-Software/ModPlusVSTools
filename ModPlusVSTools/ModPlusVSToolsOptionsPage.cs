@@ -21,6 +21,17 @@ namespace ModPlusVSTools
                      "значений во всплывающих подсказках по ключам локализации.")]
         [Editor(typeof(LanguageFolderNameEditor), typeof(UITypeEditor))]
         public string BaseLanguageFilesPath { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Проверять наличие новой версии расширения при запуске Visual Studio.
+        /// </summary>
+        [Category("Обновления")]
+        [DisplayName("Проверять обновления при запуске")]
+        [Description("При запуске Visual Studio проверять наличие новой версии расширения в разделе Releases " +
+                     "репозитория ModPlus-Software/ModPlusVSTools на GitHub. Проверить вручную можно командой " +
+                     "Расширения → ModPlus → Проверить обновления.")]
+        [DefaultValue(true)]
+        public bool CheckForUpdatesOnStartup { get; set; } = true;
     }
 
     /// <summary>
