@@ -15,6 +15,14 @@
           <ButtonText>ModPlus</ButtonText>
         </Strings>
       </Menu>
+
+      <!-- Подменю "Локализация" внутри меню ModPlus -->
+      <Menu guid="guidModPlusVSToolsCmdSet" id="LocalizationMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusLocalizationMenuGroup" />
+        <Strings>
+          <ButtonText>Локализация</ButtonText>
+        </Strings>
+      </Menu>
     </Menus>
 
     <Groups>
@@ -23,14 +31,24 @@
         <Parent guid="guidVSMainMenu" id="IDM_VS_MENU_EXTENSIONS" />
       </Group>
 
-      <!-- Группа внутри меню ModPlus для пунктов -->
+      <!-- Группа внутри меню ModPlus для пунктов сборки проекта -->
       <Group guid="guidModPlusVSToolsCmdSet" id="ModPlusMenuGroup" priority="0x0000">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" />
+      </Group>
+
+      <!-- Группа (отделяется разделителем) с подменю "Локализация" -->
+      <Group guid="guidModPlusVSToolsCmdSet" id="ModPlusLocalizationMenuGroup" priority="0x0080">
         <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" />
       </Group>
 
       <!-- Отдельная группа (отделяется разделителем) для служебных пунктов -->
       <Group guid="guidModPlusVSToolsCmdSet" id="ModPlusServiceMenuGroup" priority="0x0100">
         <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusMenu" />
+      </Group>
+
+      <!-- Группа внутри подменю "Локализация" -->
+      <Group guid="guidModPlusVSToolsCmdSet" id="LocalizationMenuGroup" priority="0x0000">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="LocalizationMenu" />
       </Group>
     </Groups>
 
@@ -48,6 +66,30 @@
         <Strings>
           <ButtonText>Собрать и архивировать</ButtonText>
           <ToolTipText>Сборка проекта по всем версионным конфигурациям и упаковка полученных dll в zip-архив</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidModPlusVSToolsCmdSet" id="LocalizationEditorCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="LocalizationMenuGroup" />
+        <Strings>
+          <ButtonText>Редактор</ButtonText>
+          <ToolTipText>Открыть редактор исходных файлов локализации ModPlus</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidModPlusVSToolsCmdSet" id="LocalizationBuildCommandId" priority="0x0101" type="Button">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="LocalizationMenuGroup" />
+        <Strings>
+          <ButtonText>Собрать</ButtonText>
+          <ToolTipText>Собрать языковые файлы в папку Languages установленного ModPlus (как в ModPlusBuilder и LangFilesEditor)</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidModPlusVSToolsCmdSet" id="OpenSettingsCommandId" priority="0x0090" type="Button">
+        <Parent guid="guidModPlusVSToolsCmdSet" id="ModPlusServiceMenuGroup" />
+        <Strings>
+          <ButtonText>Настройки</ButtonText>
+          <ToolTipText>Открыть настройки ModPlus VS Tools</ToolTipText>
         </Strings>
       </Button>
 
@@ -80,9 +122,15 @@
       <IDSymbol name="ModPlusMenu" value="0x1020" />
       <IDSymbol name="ModPlusMenuGroup" value="0x1030" />
       <IDSymbol name="ModPlusServiceMenuGroup" value="0x1040" />
+      <IDSymbol name="ModPlusLocalizationMenuGroup" value="0x1050" />
+      <IDSymbol name="LocalizationMenu" value="0x1060" />
+      <IDSymbol name="LocalizationMenuGroup" value="0x1070" />
       <IDSymbol name="BuildCommandId" value="0x0100" />
       <IDSymbol name="BuildAndArchiveCommandId" value="0x0101" />
       <IDSymbol name="CheckForUpdatesCommandId" value="0x0102" />
+      <IDSymbol name="OpenSettingsCommandId" value="0x0103" />
+      <IDSymbol name="LocalizationEditorCommandId" value="0x0104" />
+      <IDSymbol name="LocalizationBuildCommandId" value="0x0105" />
     </GuidSymbol>
   </Symbols>
 

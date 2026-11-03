@@ -12,13 +12,20 @@ namespace ModPlusVSTools
     public sealed class ModPlusVSToolsOptionsPage : DialogPage
     {
         /// <summary>
-        /// Корневая папка файлов локализации ModPlus.
+        /// Папка исходных файлов локализации ModPlus (папка LanguageFiles\LanguageFiles репозитория LanguageFiles).
         /// </summary>
+        /// <remarks>
+        /// Имя свойства не меняется: под ним значение сохранено в настройках VS у пользователей.
+        /// </remarks>
         [Category("Локализация")]
-        [DisplayName("Путь к папке файлов локализации")]
-        [Description("Корневая папка файлов локализации ModPlus. Внутри неё должны находиться подпапки языков " +
-                     "(ru-RU, en-US и т.д.) с XML-файлами локализации. Используется для показа локализованных " +
-                     "значений во всплывающих подсказках по ключам локализации.")]
+        [DisplayName("Путь к папке исходных файлов локализации")]
+        [Description("Папка ИСХОДНЫХ файлов локализации ModPlus из репозитория LanguageFiles — " +
+                     "LanguageFiles\\LanguageFiles (рядом с ней лежат проекты LangFilesEditor и ModPlus.LanguageTools.Cli). " +
+                     "Внутри неё должны находиться подпапки языков (ru-RU, en-US и т.д.) с XML-файлами плагинов " +
+                     "(Revit_mprAlignViews_ru.xml, Common.xml и т.д.) и файл Langs.xml. " +
+                     "Не указывайте здесь папку Languages установленного ModPlus — там лежат уже собранные файлы. " +
+                     "Используется всплывающими подсказками по ключам локализации, редактором локализации и командой " +
+                     "Расширения → ModPlus → Локализация → Собрать.")]
         [Editor(typeof(LanguageFolderNameEditor), typeof(UITypeEditor))]
         public string BaseLanguageFilesPath { get; set; } = string.Empty;
 
@@ -42,7 +49,7 @@ namespace ModPlusVSTools
         /// <inheritdoc/>
         protected override void InitializeDialog(FolderBrowser folderBrowser)
         {
-            folderBrowser.Description = "Выберите корневую папку файлов локализации ModPlus";
+            folderBrowser.Description = "Выберите папку исходных файлов локализации ModPlus (LanguageFiles\\LanguageFiles)";
         }
     }
 }

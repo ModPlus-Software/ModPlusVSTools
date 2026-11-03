@@ -1,0 +1,29 @@
+<platformUi:DialogWindow
+    x:Class="ModPlusVSTools.Localization.UI.MarkForDeletionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    Title="Пометка к удалению"
+    MinWidth="420"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterOwner"
+    ShowInTaskbar="False"
+    ResizeMode="NoResize">
+
+    <StackPanel Margin="16">
+        <TextBlock x:Name="StateText" MaxWidth="460" TextWrapping="Wrap" />
+
+        <TextBlock Margin="0,12,0,4" Text="Удалить после версии:" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="0,0,8,0" VerticalAlignment="Center" FontFamily="Consolas" Opacity="0.7" Text="todo remove after" />
+            <TextBox x:Name="VersionBox" MinWidth="140" VerticalContentAlignment="Center" />
+        </StackPanel>
+        <TextBlock x:Name="ErrorText" Margin="0,6,0,0" Foreground="#E04848" Visibility="Collapsed" Text="Введите корректный номер версии, например 1.2.3.0" />
+
+        <StackPanel Margin="0,16,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Width="100" Height="26" Content="Пометить" IsDefault="True" Click="Mark_OnClick" />
+            <Button x:Name="UnmarkButton" Width="120" Height="26" Margin="8,0,0,0" Content="Снять пометку" Click="Unmark_OnClick" />
+            <Button Width="90" Height="26" Margin="8,0,0,0" Content="Отмена" IsCancel="True" />
+        </StackPanel>
+    </StackPanel>
+</platformUi:DialogWindow>

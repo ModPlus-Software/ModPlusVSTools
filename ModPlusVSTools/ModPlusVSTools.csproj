@@ -27,6 +27,11 @@
     <Folder Include="UI\" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Общая библиотека файлов локализации из репозитория LanguageFiles (берётся сборка netstandard2.0):
+         сборка языковых файлов и правила проверки — тот же код, что у ModPlusBuilder и LangFilesEditor -->
+    <ProjectReference Include="..\..\LanguageFiles\ModPlus.LanguageTools\ModPlus.LanguageTools.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <VSCTCompile Include="ModPlusVSToolsPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
@@ -34,6 +39,30 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\ProjectSelectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\UI\EditorResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\UI\LocalizationEditorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\UI\ModuleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\UI\ImportDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\UI\MarkForDeletionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\UI\NewModuleDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

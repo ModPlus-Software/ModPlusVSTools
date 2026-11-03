@@ -6,6 +6,8 @@ using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ModPlusVSTools.Commands;
+using ModPlusVSTools.Localization;
+using ModPlusVSTools.Localization.UI;
 using ModPlusVSTools.Services;
 using Task = System.Threading.Tasks.Task;
 
@@ -13,12 +15,13 @@ namespace ModPlusVSTools
 {
     /// <summary>
     /// Пакет расширения ModPlus VS Tools.
-    /// Добавляет меню "ModPlus" в главное меню "Расширения" (Extensions),
+    /// Добавляет меню "ModPlus" в главное меню "Расширения" (Extensions), редактор локализации,
     /// страницу настроек, проверку пути к файлам локализации и проверку обновлений при запуске.
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(ModPlusVSToolsOptionsPage), "ModPlus VS Tools", "Основные", 0, 0, true)]
+    [ProvideToolWindow(typeof(LocalizationEditorToolWindow), Style = VsDockStyle.MDI, MultiInstances = false, Transient = false)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.NoSolution_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string, PackageAutoLoadFlags.BackgroundLoad)]
     [Guid(PackageGuidString)]
@@ -46,6 +49,7 @@ namespace ModPlusVSTools
 
             await BuildCommand.InitializeAsync(this);
             await BuildAndArchiveCommand.InitializeAsync(this);
+            await LocalizationCommands.InitializeAsync(this);
 
             var updateNotifier = new UpdateNotifier(this);
             await CheckForUpdatesCommand.InitializeAsync(this, updateNotifier);
@@ -64,7 +68,38 @@ namespace ModPlusVSTools
         }
 
         /// <summary>
-        /// Проверяет путь к папке файлов локализации и при проблеме показывает InfoBar.
+        /// При закрытии VS предлагает сохранить несохранённые изменения редактора локализации.
+        /// </summary>
+        /// <inheritdoc/>
+        protected override int QueryClose(out bool canClose)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            canClose = true;
+
+            var editor = LocalizationEditorSession.Current;
+            if (editor == null)
+                return VSConstants.S_OK;
+
+            editor.CommitEdits();
+            if (!editor.HasUnsavedChanges)
+                return VSConstants.S_OK;
+
+            var answer = Ui.AskYesNoCancel("В редакторе локализации ModPlus есть несохранённые изменения. Сохранить их?");
+            if (answer == null)
+            {
+                canClose = false;
+            }
+            else if (answer == true)
+            {
+                // Запись файлов идёт в фоне; ожидание на UI-потоке через JoinableTaskFactory безопасно
+                canClose = JoinableTaskFactory.Run(() => editor.SaveAllAsync());
+            }
+
+            return VSConstants.S_OK;
+        }
+
+        /// <summary>
+        /// Проверяет путь к папке исходных файлов локализации и при проблеме показывает InfoBar.
         /// </summary>
         private void CheckLocalizationPath()
         {

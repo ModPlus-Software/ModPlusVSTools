@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../LanguageFiles/ModPlus.LanguageTools/ModPlus.LanguageTools.csproj" />
   <Project Path="ModPlusVSTools/ModPlusVSTools.csproj">
     <Deploy />
   </Project>
