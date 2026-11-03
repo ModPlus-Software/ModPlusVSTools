@@ -324,23 +324,26 @@ namespace ModPlusVSTools.Localization.ViewModels
         /// Загружает записи узла, если они ещё не загружены.
         /// </summary>
         /// <param name="module">Узел.</param>
-        public Task EnsureLoadedAsync(LocModule module)
+        public async Task EnsureLoadedAsync(LocModule module)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             if (module.LoadState == ModuleLoadState.Loaded)
-                return Task.CompletedTask;
+                return;
 
             if (_loadingTasks.TryGetValue(module, out var pending))
-                return pending;
+            {
+                await pending;
+                return;
+            }
 
             // Узел загружается пакетно для глобального поиска — данные придут оттуда
             if (module.LoadState == ModuleLoadState.Loading)
-                return Task.CompletedTask;
+                return;
 
             var task = LoadModuleAsync(module);
             _loadingTasks[module] = task;
-            return task;
+            await task;
         }
 
         /// <summary>

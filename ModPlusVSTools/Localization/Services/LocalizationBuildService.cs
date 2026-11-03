@@ -65,7 +65,7 @@ namespace ModPlusVSTools.Localization.Services
 
         private static async Task<bool> RunAsync(ModPlusVSToolsPackage package)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await package.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             var pane = package.GetOutputPane(OutputPaneGuid, "ModPlus — локализация");
             pane.Activate();
